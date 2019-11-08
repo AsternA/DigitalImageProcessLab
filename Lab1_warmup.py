@@ -144,7 +144,7 @@ black = [0,0,0]     #---Color of the border---
 # plt.ylabel('Magnitude')
 #
 # plt.show()
-#
+
 
 #ex 1.4.3 - white noise
 #
@@ -388,6 +388,32 @@ black = [0,0,0]     #---Color of the border---
 #
 # ## TODO - Need to add graph titles and be checked by Joanna
 #
-############################################################################################################
-# # ex 2.2.2 - Campbell - Robson
-############################################################################################################
+# ############################################################################################################
+# # # ex 2.3.2.2 - Copying Image with Convolution
+# ############################################################################################################
+#
+# pic = plt.imread("/Users/almogstern/Pictures/Final_desktop/06.jpg") # Change picture according to computer used
+# pic_sz = pic.shape
+# pic = np.uint8(pic)
+# pic_sz_uint=pic.shape
+# print(pic_sz)
+# print(pic_sz_uint)
+#
+# #print(pic_sz)
+# conv_mat = np.zeros((1464, 2200))
+# conv_mat[1,1] = 1
+# conv_mat[1463,1] = 1
+# conv_mat[1,2199] = 1
+# conv_mat[1463, 2199] = 1
+# mat_size = conv_mat.shape
+# print(mat_size)
+# #flt = np.ndarray.flatten(conv_mat)
+#
+# fnl_pic = np.convolve(pic,conv_mat)
+#
+# #fnl_pic = np.uint8(fnl_pic)
+#
+#
+# plt.imshow(fnl_pic)
+# plt.show()
+#
