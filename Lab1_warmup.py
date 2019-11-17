@@ -410,29 +410,29 @@ from scipy import signal
 
 #pic = color.rgb2gray(io.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif"))
 # #
-pic = plt.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif") # Change picture according to computer used
-pic_sz = pic.shape
-pic = np.uint8(pic)
-pic_sz_uint = pic.shape
-print('the pic size is:')
-print(pic_sz)
-print(pic_sz_uint)
-
-conv_mat = np.zeros((205, 232))
-conv_mat[1,1] = 1
-conv_mat[204,1] = 1
-conv_mat[1,231] = 1
-conv_mat[204, 231] = 1
-mat_size = conv_mat.shape
-print('the conv mat size is:')
-print(mat_size)
-#flt = np.ndarray.flatten(conv_mat)
+# pic = plt.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif") # Change picture according to computer used
+# pic_sz = pic.shape
+# pic = np.uint8(pic)
+# pic_sz_uint = pic.shape
+# print('the pic size is:')
+# print(pic_sz)
+# print(pic_sz_uint)
 #
-# #fnl_pic = np.convolve(pic, conv_mat)
-fnl_pic = signal.convolve2d(pic, conv_mat)
-# #fnl_pic = np.uint8(fnl_pic)
+# conv_mat = np.zeros((205, 232))
+# conv_mat[1,1] = 1
+# conv_mat[204,1] = 1
+# conv_mat[1,231] = 1
+# conv_mat[204, 231] = 1
+# mat_size = conv_mat.shape
+# print('the conv mat size is:')
+# print(mat_size)
+# #flt = np.ndarray.flatten(conv_mat)
+# #
+# # #fnl_pic = np.convolve(pic, conv_mat)
+# fnl_pic = signal.convolve2d(pic, conv_mat)
+# # #fnl_pic = np.uint8(fnl_pic)
+# #
+# #
+# plt.imshow(fnl_pic)
+# plt.show()
 #
-#
-plt.imshow(fnl_pic)
-plt.show()
-
