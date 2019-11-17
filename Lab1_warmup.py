@@ -5,21 +5,32 @@ from matplotlib.colors import Normalize
 import matplotlib.pyplot as plt
 from random import gauss
 import cv2
+from skimage import color, io
+from scipy import signal
+
+#np.test("full")
+#scipy.test("full")
+
+
+
 #print(cv2.__version__)
 
-font = cv2.FONT_HERSHEY_SIMPLEX
-#--- Here I am creating the border---
-black = [0,0,0]     #---Color of the border---
-#constant=cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_CONSTANT,value=black )
-#--- Here I created a violet background to include the text ---
-#white = np.zeros((100, constant.shape[1], 3), np.uint8)
-#white[:] = (255, 255, 255)
-
-# --- I then concatenated it vertically to the image with the border ---
-
-#vcat = cv2.vconcat((violet, constant))
+# font = cv2.FONT_HERSHEY_SIMPLEX
+# #--- Here I am creating the border---
+# black = [0,0,0]     #---Color of the border---
+# constant=cv2.copyMakeBorder(img1,10,10,10,10,cv2.BORDER_CONSTANT,value=black )
+# #--- Here I created a violet background to include the text ---
+# white = np.zeros((100, constant.shape[1], 3), np.uint8)
+# white[:] = (255, 255, 255)
 #
+# # --- I then concatenated it vertically to the image with the border ---
+#
+# vcat = cv2.vconcat((violet, constant))
+
+
+#############################
 #ex 1
+# ###########################
 # k = 40
 # img1 = np.ones((400, 400, 3), dtype=np.uint8) * k
 # for i in range (k-10,k+10,1):
@@ -35,9 +46,9 @@ black = [0,0,0]     #---Color of the border---
 #     cv2.waitKey(0)
 
 
-
+######################################
 # ex
-
+######################################
 # fimg = Image.fromarray(img1, 'RGB')
 # fimg.save('Lab1ex1.png')
 #
@@ -291,8 +302,8 @@ black = [0,0,0]     #---Color of the border---
 ############################################################################################################
 # # ex 2.2.1 - 2D Signals
 ############################################################################################################
-#
-# # Set the Constants
+
+##Set the Constants
 # N = 255
 # Fs = N
 # Ts = 1/Fs
@@ -345,12 +356,12 @@ black = [0,0,0]     #---Color of the border---
 ############################################################################################################
 # # ex 2.2.2 - Campbell - Robson
 ############################################################################################################
-
-# # Constants
+#
+# Constants
 # N = 256
 # C = 127
 # f_max = 25
-# f_min = 5
+# f_min = 1
 # amp_max = 255
 # amp_min = 1
 #
@@ -365,55 +376,63 @@ black = [0,0,0]     #---Color of the border---
 # func_amp = amp.T
 #
 # func_freq_mat = np.matlib.repmat(func_freq,N,1)
-# func_amp_mat  = np.matlib.repmat(func_amp,N,1)
+# func_amp_mat = np.matlib.repmat(func_amp,N,1)
 # func_amp_mat_T = func_amp_mat.T
 #
 # func_cmp_rob = ((func_amp_mat_T * func_freq_mat)/ N) +C
 #
 # plt.subplot(231)
 # plt.imshow(func_freq_mat, cmap='gray', vmin=0, vmax=255)
+# plt.title('Sinusoid with Rising Freq.')
 #
 # plt.subplot(232)
 # plt.imshow(func_amp_mat_T, cmap='gray', vmin=0, vmax=255)
+# plt.title('Amplitude Changes from Top to Bottom')
 #
 # plt.subplot(233)
 # plt.imshow(func_cmp_rob, cmap='gray', vmin=0, vmax=255)
+# plt.title('Campbell & Robson Chart')
 #
 # plt.subplot(234)
 # plt.plot(freq)
+# plt.title('Freq. Graph')
 #
 # plt.subplot(235)
 # plt.plot(amp)
+# plt.title('Amplitude Graph')
 # plt.show()
-#
-# ## TODO - Need to add graph titles and be checked by Joanna
+
+
 #
 # ############################################################################################################
 # # # ex 2.3.2.2 - Copying Image with Convolution
 # ############################################################################################################
-#
-# pic = plt.imread("/Users/almogstern/Pictures/Final_desktop/06.jpg") # Change picture according to computer used
+
+#pic = color.rgb2gray(io.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif"))
+# #
+# pic = plt.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif") # Change picture according to computer used
 # pic_sz = pic.shape
 # pic = np.uint8(pic)
-# pic_sz_uint=pic.shape
+# pic_sz_uint = pic.shape
+# print('the pic size is:')
 # print(pic_sz)
 # print(pic_sz_uint)
 #
-# #print(pic_sz)
-# conv_mat = np.zeros((1464, 2200))
+# conv_mat = np.zeros((205, 232))
 # conv_mat[1,1] = 1
-# conv_mat[1463,1] = 1
-# conv_mat[1,2199] = 1
-# conv_mat[1463, 2199] = 1
+# conv_mat[204,1] = 1
+# conv_mat[1,231] = 1
+# conv_mat[204, 231] = 1
 # mat_size = conv_mat.shape
+# print('the conv mat size is:')
 # print(mat_size)
 # #flt = np.ndarray.flatten(conv_mat)
-#
-# fnl_pic = np.convolve(pic,conv_mat)
-#
-# #fnl_pic = np.uint8(fnl_pic)
-#
-#
+# #
+# # #fnl_pic = np.convolve(pic, conv_mat)
+# fnl_pic = signal.convolve2d(pic, conv_mat)
+# # #fnl_pic = np.uint8(fnl_pic)
+# #
+# #
 # plt.imshow(fnl_pic)
 # plt.show()
 #
