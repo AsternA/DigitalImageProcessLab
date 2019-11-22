@@ -95,12 +95,12 @@ import scipy
 def create_histogram(img):
     """Create Histogram for Image"""
     rows, cols = img.shape
-    hist = []
+    hist = np.zeros(N)
     for i in range(0, 255, 1):
         for col in range(0, cols, 1):
             for row in range(0, rows, 1):
-                hist.append(img[row,col] == i)
-        #hist[i] = sum(img == i)
+                if img[row,col] == i:
+                    hist[i] += 1
     return hist
 #
 # ############################################################
@@ -359,11 +359,13 @@ n = np.linspace(0,N,N)
 # Loading the Image
 img = plt.imread('/Users/almogstern/Desktop/tire.tif')
 manual_hist = create_histogram(img)
-# for Loop on the image counting the number of pixels
+# Plot Histogram
 plt.subplot(2, 1, 1)
 plt.plot(manual_hist)
+plt.title('Manual Histogram')
 plt.subplot(2, 1, 2)
-g= plt.hist(img.ravel(), 256, [0, 256])
+plt.hist(img.ravel(), 256, [0, 256])
+plt.title('plt.hist')
 plt.show()
 
 
