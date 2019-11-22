@@ -358,14 +358,26 @@ N = 256
 n = np.linspace(0,N,N)
 # Loading the Image
 img = plt.imread('/Users/almogstern/Desktop/tire.tif')
-manual_hist = create_histogram(img)
+# Calculating Histogram
+manual_hist = create_histogram(img) # Calculation time is longer than usual
+# PDF and CDF of Manual Histogram
+manual_pdf = manual_hist / sum(manual_hist)
+
+manual_cdf = np.cumsum(manual_pdf)
+
 # Plot Histogram
-plt.subplot(2, 1, 1)
+plt.subplot(3, 4, (1, 4))
 plt.plot(manual_hist)
-plt.title('Manual Histogram')
-plt.subplot(2, 1, 2)
+plt.title('Manual Histogram and Histogram Command')
+plt.subplot(3, 4, (1, 4))
 plt.hist(img.ravel(), 256, [0, 256])
-plt.title('plt.hist')
+#plt.title('plt.hist')
+plt.subplot(3, 4, (5, 8))
+plt.plot(manual_pdf)
+plt.title('PDF')
+plt.subplot(3, 4, (9, 12))
+plt.plot(manual_cdf)
+plt.title('CDF')
 plt.show()
 
 
