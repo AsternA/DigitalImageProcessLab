@@ -435,7 +435,9 @@ def create_histogram(img):
 # plt.show()
 #
 # #########################################
-# ## 3.3 - Threshold
+# ## 3.3.1 - Histogram Stretching
 # #########################################
+# Loading the Image
+img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
 
 
