@@ -1,12 +1,16 @@
 import numpy as np
 import numpy.matlib
 from PIL import Image
+import matplotlib
 from matplotlib.colors import Normalize
 import matplotlib.pyplot as plt
 from random import gauss
 import cv2
 from skimage import color, io
 from scipy import signal
+import scipy
+from skimage.util import random_noise
+import skimage
 
 #np.test("full")
 #scipy.test("full")
@@ -245,7 +249,7 @@ from scipy import signal
 # # Ex 2.1.1 - Background and BBobject
 ############################################################################################################
 
-# k = 200
+# k = 50
 # img1 = np.ones((400, 400), dtype=np.uint8) * k
 # for i in range (k-10,k+11,1):
 #     img1[150:250, 150:250] = i
@@ -436,3 +440,137 @@ from scipy import signal
 # plt.imshow(fnl_pic)
 # plt.show()
 #
+# ############################################################################################################
+# # # ex 2.3.3.3 -Filters
+##############################################################################################################
+# # Creating the Filters
+# Wlpf         = np.ones((3, 3), np.float) / 9
+# Whpf         = np.ones((3, 3), np.float) * (-1/9)
+# Whpf[1,1]    = 8/9
+# Wsharp       = np.ones((3, 3), np.float)*(-1/ 9)
+# Wsharp[1, 1] = 17/9
+# Wlaplace     = np.zeros((3, 3), np.float)
+# Wlaplace[0, 1] = -1
+# Wlaplace[1, 0] = -1
+# Wlaplace[1, 1] =  4
+# Wlaplace[1, 2] = -1
+# Wlaplace[2, 1] = -1
+#
+# # Loading the image
+# img = plt.imread('/Users/almogstern/Desktop/tire.tif')
+# plt.figure(1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+#
+# ### Convolutions:
+# # Convolution With LPF
+# plt.figure(2)
+# plt.subplot(2, 2, 1)
+# lpf_img = signal.convolve2d(img, Wlpf)
+# plt.imshow(lpf_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Low Pass Filter')
+#
+# # Convolution With HPF
+# hpf_img = signal.convolve2d(img, Whpf)
+# plt.subplot(2, 2, 2)
+# plt.imshow(hpf_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('High Pass Filter')
+#
+# # Convolution With Sharp Filter
+# sharpf_img = signal.convolve2d(img, Wsharp)
+# plt.subplot(2, 2, 3)
+# plt.imshow(sharpf_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Sharp Filter')
+#
+# # Convolution With Laplace Filter
+# laplacef_img = signal.convolve2d(img, Wlaplace)
+# plt.subplot(2, 2, 4)
+# plt.imshow(laplacef_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Laplace Filter')
+#
+# # Convolution with MedFilter
+# plt.figure(3)
+# medfilt_img = scipy.signal.medfilt2d(img)
+# plt.subplot(1,2,1)
+# plt.imshow(medfilt_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Medfilt2d filter')
+# median_img = np.zeros(img.shape)
+# for i in range(0,204,1):
+#     for j in range(0,231,1):
+#         median_img[i, j] = np.median(img[i, j])
+# plt.subplot(1, 2, 2)
+# plt.imshow(median_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('2 For loop Filter')
+#
+# plt.show()
+# ############################################################################################################
+# # # ex 2.3.3.4 - Noise
+##############################################################################################################
+# Loading the image
+# img = plt.imread('/Users/almogstern/Desktop/tire.tif')
+# plt.figure(1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+#
+# gauss = random_noise(img, mode='localvar')*255.0
+# sp = random_noise(img, mode='s&p')*255.0
+# plt.subplot(1, 2, 1)
+# plt.imshow(gauss, cmap='gray', vmin=0, vmax=255)
+# plt.title('Gauss')
+# plt.subplot(1, 2, 2)
+# plt.imshow(sp, cmap='gray', vmin=0, vmax=255)
+# plt.title('S & P')
+# plt.show()
+#
+#
+# def noisy(noise_typ, image):
+#     if noise_typ == "gauss":
+#        row, col = image.shape
+#        mean = 0
+#        var = 0.1
+#        sigma = var**0.5
+#        gauss = np.random.normal(mean,sigma,(row,col))
+#        gauss = gauss.reshape(row,col)
+#        noisy = image + gauss
+#        return noisy
+#     elif noise_typ == "s&p":
+#        row,col = image.shape
+#        s_vs_p = 0.5
+#        amount = 0.05
+#        out = np.copy(image)
+#        # Salt mode
+#        num_salt = np.ceil(amount * image.size * s_vs_p)
+#        coords = [np.random.randint(0, i - 1, int(num_salt))
+#                for i in image.shape]
+#        out[tuple(coords)] = 255
+#
+#        # Pepper mode
+#        num_pepper = np.ceil(amount* image.size * (1. - s_vs_p))
+#        coords = [np.random.randint(0, i - 1, int(num_pepper))
+#                for i in image.shape]
+#        out[tuple(coords)] = 0
+#        return out
+  # elif noise_typ == "poisson":
+  #     vals = len(np.unique(image))
+  #     vals = 2 ** np.ceil(np.log2(vals))
+  #     noisy = np.random.poisson(image * vals) / float(vals)
+  #     return noisy
+  # else noise_typ =="speckle":
+  #     row,col,ch = image.shape
+  #     gauss = np.random.randn(row,col,ch)
+  #     gauss = gauss.reshape(row,col,ch)
+  #     noisy = image + image * gauss
+  #     return noisy
+
+#img_sp = noisy("guass", img)
+#img_sp = np.uint8(img_sp)
+#plt.imshow(np.uint8(img_sp), cmap='gray', vmin=0, vmax=255)
+
+# ...
+#img = ...    # numpy-array of shape (N, M); dtype=np.uint8
+# ...
+# mean = 0.0   # some constant
+# std = 0.01**0.25   # some constant (standard deviation)
+# noisy_img = img + np.random.normal(mean, std, img.shape)
+# noisy_img_clipped = np.clip(noisy_img, 0, 255)  # we might get out of bounds due to noise
+# plt.figure(2)
+# plt.imshow(noisy_img_clipped, cmap='gray', vmin=0, vmax=255)
+# plt.show()
