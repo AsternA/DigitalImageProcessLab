@@ -103,6 +103,16 @@ def create_histogram(img):
                     hist[i] += 1
     return hist
 #
+#
+# ############################################################
+# ############################################################
+# def threshold(img, threshold='110'):
+#     """Create a threshold for Image, Default Value is 110 """
+#     rows, cols = img.shape
+#     for
+#
+#     return img
+
 # ############################################################
 # # ex. 1.1.2 - Adding Brightness Only to Tire.tif:
 # ##########################################################
@@ -352,34 +362,80 @@ def create_histogram(img):
 # #########################################
 # ## 2.1.2 Which is also 3.2
 # #########################################
-# Creating your own Histogram
-N = 256
-# Create linspace
-n = np.linspace(0,N,N)
-# Loading the Image
-img = plt.imread('/Users/almogstern/Desktop/tire.tif')
-# Calculating Histogram
-manual_hist = create_histogram(img) # Calculation time is longer than usual
-# PDF and CDF of Manual Histogram
-manual_pdf = manual_hist / sum(manual_hist)
+# # Creating your own Histogram
+# N = 256
+# # Create linspace
+# n = np.linspace(0,N,N)
+# # Loading the Image
+# img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# # Calculating Histogram
+# manual_hist = create_histogram(img) # Calculation time is longer than usual
+# # PDF and CDF of Manual Histogram
+# manual_pdf = manual_hist / sum(manual_hist)
+#
+# manual_cdf = np.cumsum(manual_pdf)
+#
+# # Plots
+# plt.subplot(3, 4, (1, 4))
+# plt.plot(manual_hist)
+# plt.title('Manual Histogram and Histogram Command')
+# plt.subplot(3, 4, (1, 4))
+# plt.hist(img.ravel(), 256, [0, 256])
+# #plt.title('plt.hist')
+# plt.subplot(3, 4, (5, 8))
+# plt.plot(manual_pdf)
+# plt.title('PDF')
+# plt.subplot(3, 4, (9, 12))
+# plt.plot(manual_cdf)
+# plt.title('CDF')
+# plt.show()
 
-manual_cdf = np.cumsum(manual_pdf)
-
-# Plot Histogram
-plt.subplot(3, 4, (1, 4))
-plt.plot(manual_hist)
-plt.title('Manual Histogram and Histogram Command')
-plt.subplot(3, 4, (1, 4))
-plt.hist(img.ravel(), 256, [0, 256])
-#plt.title('plt.hist')
-plt.subplot(3, 4, (5, 8))
-plt.plot(manual_pdf)
-plt.title('PDF')
-plt.subplot(3, 4, (9, 12))
-plt.plot(manual_cdf)
-plt.title('CDF')
-plt.show()
-
-
+# #########################################
+# ## 3.3 - Threshold
+# #########################################
+# # Reading the Image
+# img_cv = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/rice.png', cv2.CV_8UC1)
+# img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/rice.png')
+# img = img * 255
+# rows, cols = img.shape
+# # Setting the Threshold
+# thr = 110
+# thr_img = np.uint8(img > thr) * 255
+#
+# # Average Columns
+# mcols = np.arange(cols)
+# meancols = np.mean(img, axis=1, out=mcols)
+#
+# # Average Rows
+# mrows = np.arange(rows)
+# meanrows = np.mean(img.T, axis=1, out=mrows)
+#
+# # Adaptive Threshold
+# ret, th3 = cv2.threshold(img_cv, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+#
+# # Plotting
+# plt.subplot(2, 3, 1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Original Image')
+# plt.subplot(2, 3, 2)
+# plt.imshow(thr_img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Single Threshold at 110')
+# plt.subplot(2, 3, 3)
+# plt.plot(mcols)
+# plt.title('Colums Average')
+# plt.subplot(2, 3, 4)
+# plt.hist(img.ravel(), 256, [0, 256])
+# plt.title('Img Histogram')
+# plt.subplot(2, 3, 5)
+# plt.plot(mrows)
+# plt.title('Rows Average')
+# plt.subplot(2, 3, 6)
+# plt.imshow(th3, 'gray')
+# plt.title('Adaptive Threshold')
+# plt.show()
+#
+# #########################################
+# ## 3.3 - Threshold
+# #########################################
 
 
