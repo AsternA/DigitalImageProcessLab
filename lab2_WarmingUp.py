@@ -134,32 +134,33 @@ def hist_stretch(img, t_func):
 # ############################################################
 # # ex. 1.1.2 - Adding Brightness Only to Tire.tif:
 # ##########################################################
+
+
+# I = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/tire.tif')
+# plt.subplot(3, 2, 1)
+# plt.imshow(np.uint8(I), cmap='gray', vmin=0, vmax=255)
+# plt.subplot(3, 2, 2)
+# plt.hist(I.ravel(), 256, [0, 256])
+# plt.title('Histogram for Tire.tif original image')
 #
-# # I = cv2.imread("C:/Program Files/MATLAB/R2017b/toolbox/images/imdata/tire.tif")
-# # plt.subplot(2, 3, 1)
-# # plt.imshow(I)
-# # plt.subplot(2, 3, 4)
-# # plt.hist(I.ravel(), 256, [0, 256])
-# # plt.title('Histogram for Tire.tif original image')
-# #
-# # II = brightness(I, value=50)
-# # plt.subplot(2, 3, 2)
-# # plt.imshow(II)
-# # plt.subplot(2, 3, 5)
-# # plt.hist(II.ravel(), 256, [0, 256])
-# # plt.title('Histogram for Tire.tif added brightness')
-# #
-# #
-# # III = II - 50
-# # plt.subplot(2, 3, 3)
-# # plt.imshow(III)
-# # plt.subplot(2, 3, 6)
-# # plt.hist(III.ravel(), 256, [0, 256])
-# # plt.title('Histogram for Tire.tif substracted brightness')
-# #
-# # plt.show()
+# II = brightness2(I, value=100)
+# plt.subplot(3, 2, 3)
+# plt.imshow(II, cmap='gray', vmin=0, vmax=255)
+# plt.subplot(3, 2, 4)
+# plt.hist(II.ravel(), 256, [0, 256])
+# plt.title('Added brightness')
 #
 #
+# III = II - 100
+# plt.subplot(3, 2, 5)
+# plt.imshow(III, cmap='gray', vmin=0, vmax=255)
+# plt.subplot(3, 2, 6)
+# plt.hist(III.ravel(), 256, [0, 256])
+# plt.title('Subtracted brightness')
+#
+# plt.show()
+
+
 # ################################################
 # # #ex 1.1.3 - Adding Contrast to Tire.tif:
 # ################################################
@@ -193,57 +194,57 @@ def hist_stretch(img, t_func):
 # #######################################
 # # 1.2 - random signal pdf, PDF, CDF
 # #######################################
-# #
-# # # Creating a random uniform discrete signal
-# # uni_sig = np.random.randint(0, 255, 1000)
-# # plt.subplot(2,3,1)
-# # plt.plot(uni_sig)
-# # plt.title('Uniform Random Signal')
-# # #histogram of the random signal
-# # plt.subplot(2,3,2)
-# # hist_sig, bins, __ = plt.hist(uni_sig, color='green', bins=256)
-# # plt.title('Histogram for Uniform Random Signal')
-# #
-# # #computing the pdf for the uniform signal:
-# #
-# # #integ = sum(hist_sig[0][4:7]*np.diff(hist_sig[1][4:8]))
-# #
-# # sz = np.size(uni_sig)
-# # pdf1 = hist_sig / float(sz)
-# # cdf1 = np.cumsum(pdf1)
-# #
-# # plt.subplot(243)
-# # plt.plot(pdf1)
-# # plt.subplot(244)
-# # plt.plot(cdf1)
-# # #plt.plot(uni_sig, norm.pdf(uni_sig))
-# # dist = uniform(loc=0, scale=100)
-# # pdf1 = scipy.stats.norm.pdf(uni_sig)
-# # cdf1 = scipy.stats.norm.cdf(uni_sig)
-# #plt.subplot(2,3,3)
-# #plt.plot(integ)
+#
+# # Creating a random uniform discrete signal
+# uni_sig = np.random.randint(0, 255, 1000)
+# plt.subplot(2,3,1)
+# plt.plot(uni_sig)
+# plt.title('Uniform Random Signal')
+# #histogram of the random signal
+# plt.subplot(2,3,2)
+# hist_sig, bins, __ = plt.hist(uni_sig, color='green', bins=256)
+# plt.title('Histogram for Uniform Random Signal')
+#
+# #computing the pdf for the uniform signal:
+#
+# #integ = sum(hist_sig[0][4:7]*np.diff(hist_sig[1][4:8]))
+#
+# sz = np.size(uni_sig)
+# pdf1 = hist_sig / float(sz)
+# cdf1 = np.cumsum(pdf1)
+#
+# plt.subplot(243)
+# plt.plot(pdf1)
+# plt.subplot(244)
+# plt.plot(cdf1)
+# #plt.plot(uni_sig, norm.pdf(uni_sig))
+# dist = uniform(loc=0, scale=100)
+# pdf1 = scipy.stats.norm.pdf(uni_sig)
+# cdf1 = scipy.stats.norm.cdf(uni_sig)
+# plt.subplot(2,3,3)
+# plt.plot(integ)
 #
 # #Gaussian random signal:
-# # gauss_sig = [gauss(0.0, 5.0) for i in range(1000)]
-# # plt.subplot(2,3,4)
-# # plt.plot(gauss_sig)
-# # plt.title('Gaussian Random Signal')
-# # #histogram of the gaussian random signal:
-# # plt.subplot(2,3,5)
-# # hist_gauss_sig = plt.hist(gauss_sig, color='green', bins=256)
-# # plt.title('Histogram for Gaussian Random Signal')
-# #
-# # #computing the pdf for the Gaussian signal:
-# # dist2 = uniform(loc=0, scale=100)
-# # pdf2 = dist2.pdf(gauss_sig)
-# # cdf2 = dist2.cdf(gauss_sig)
-# # plt.subplot(2,3,6)
-# # plt.plot(cdf2)
-# # pdf = dist2.pdf(uni_sig)
-# # plt.subplot(2,3,3)
-# # plt.plot(pdf)
-# # plt.show()
+# gauss_sig = [gauss(0.0, 5.0) for i in range(1000)]
+# plt.subplot(2,3,4)
+# plt.plot(gauss_sig)
+# plt.title('Gaussian Random Signal')
+# #histogram of the gaussian random signal:
+# plt.subplot(2,3,5)
+# hist_gauss_sig = plt.hist(gauss_sig, color='green', bins=256)
+# plt.title('Histogram for Gaussian Random Signal')
 #
+# #computing the pdf for the Gaussian signal:
+# dist2 = uniform(loc=0, scale=100)
+# pdf2 = dist2.pdf(gauss_sig)
+# cdf2 = dist2.cdf(gauss_sig)
+# plt.subplot(2,3,6)
+# plt.plot(cdf2)
+# pdf = dist2.pdf(uni_sig)
+# plt.subplot(2,3,3)
+# plt.plot(pdf)
+# plt.show()
+
 #
 # #############################################################
 # #1.3 - Transformations
@@ -292,81 +293,81 @@ def hist_stretch(img, t_func):
 # #########################################
 # ## 2.1.1 Which is also 3.1
 # #########################################
-#
-# N = 256
-# n = np.linspace(0,N,N)
-#
-# img = plt.imread('/Users/almogstern/Desktop/tire.tif')
-# #hist_img = plt.hist(img, bins=N)
-#
-# # Change Brightness
-# img_bright = brightness2(img, value=50)
-# img_bright = np.uint8(img_bright)
-# img_bright_t = np.zeros(np.size(n))
-# for i in range(0,N):
-#     if n[i] + 50 >= 255:
-#         img_bright_t[i] = 255
-#     else:
-#         img_bright_t[i] = n[i] + 50
-#
-# # Change Contrast
-# img_contrast = contrast2(img, value=0.4)
-# img_contrast = np.uint8(img_contrast)
-# img_contrast_t = n * 0.4
-#
-# # Negative
-# img_negative = negative(img)
-# img_negative = np.uint8(img_negative)
-# img_negative_t = 256 - n
-#
-# # Original Image
-# plt.subplot(3, 4, 1)
-# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-# plt.title('Original Img')
-# plt.subplot(3, 4, 5)
-# plt.hist(img.ravel(), 256, [0, 256])
-# plt.title('Original Hist')
-# plt.subplot(3, 4, 9)
-# plt.plot(n,n)
-# plt.title('Original Trans')
-#
-# # Image with Different Brightness
-# plt.subplot(3, 4, 2)
-# plt.imshow(img_bright, cmap='gray', vmin=0, vmax=255)
-# plt.title('Bright Img')
-# plt.subplot(3, 4, 6)
-# plt.hist(img_bright.ravel(), 256, [0, 256])
-# plt.title('Bright Hist')
-# plt.subplot(3, 4 ,10)
-# plt.plot(n, np.uint8(img_bright_t))
-# plt.title('Bright Trans')
-#
-#
-# # Image Multiplied by Value
-# plt.subplot(3, 4, 3)
-# plt.imshow(img_contrast, cmap='gray', vmin=0, vmax=255)
-# plt.title('Contrast Img')
-# plt.subplot(3, 4, 7)
-# plt.hist(img_contrast.ravel(), 256, [0, 256])
-# plt.title('Contrast Hist')
-# plt.subplot(3, 4, 11)
-# plt.plot(n, np.uint8(img_contrast_t))
-# plt.title('Contrast Trans')
-#
-# # Negative Image
-# plt.subplot(3, 4, 4)
-# plt.imshow(img_negative, cmap='gray', vmin=0, vmax=255)
-# plt.title('Neg Image')
-# plt.subplot(3, 4, 8)
-# plt.hist(img_negative.ravel(), 256, [0, 256])
-# plt.title('Neg Hist')
-# plt.subplot(3, 4, 12)
-# plt.plot(n, np.uint8(img_negative_t))
-# plt.title('Neg Trans')
-#
-# # Show the Images
-# plt.show()
-#
+
+N = 256
+n = np.linspace(0,N,N)
+
+img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+#hist_img = plt.hist(img, bins=N)
+
+# Change Brightness
+img_bright = brightness2(img, value=50)
+img_bright = np.uint8(img_bright)
+img_bright_t = np.zeros(np.size(n))
+for i in range(0,N):
+    if n[i] + 50 >= 255:
+        img_bright_t[i] = 255
+    else:
+        img_bright_t[i] = n[i] + 50
+
+# Change Contrast
+img_contrast = contrast2(img, value=0.4)
+img_contrast = np.uint8(img_contrast)
+img_contrast_t = n * 0.4
+
+# Negative
+img_negative = negative(img)
+img_negative = np.uint8(img_negative)
+img_negative_t = 256 - n
+
+# Original Image
+plt.subplot(3, 4, 1)
+plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Img')
+plt.subplot(3, 4, 5)
+plt.hist(img.ravel(), 256, [0, 256])
+plt.title('Original Hist')
+plt.subplot(3, 4, 9)
+plt.plot(n,n)
+plt.title('Original Trans')
+
+# Image with Different Brightness
+plt.subplot(3, 4, 2)
+plt.imshow(img_bright, cmap='gray', vmin=0, vmax=255)
+plt.title('Bright Img')
+plt.subplot(3, 4, 6)
+plt.hist(img_bright.ravel(), 256, [0, 256])
+plt.title('Bright Hist')
+plt.subplot(3, 4 ,10)
+plt.plot(n, np.uint8(img_bright_t))
+plt.title('Bright Trans')
+
+
+# Image Multiplied by Value
+plt.subplot(3, 4, 3)
+plt.imshow(img_contrast, cmap='gray', vmin=0, vmax=255)
+plt.title('Contrast Img')
+plt.subplot(3, 4, 7)
+plt.hist(img_contrast.ravel(), 256, [0, 256])
+plt.title('Contrast Hist')
+plt.subplot(3, 4, 11)
+plt.plot(n, np.uint8(img_contrast_t))
+plt.title('Contrast Trans')
+
+# Negative Image
+plt.subplot(3, 4, 4)
+plt.imshow(img_negative, cmap='gray', vmin=0, vmax=255)
+plt.title('Neg Image')
+plt.subplot(3, 4, 8)
+plt.hist(img_negative.ravel(), 256, [0, 256])
+plt.title('Neg Hist')
+plt.subplot(3, 4, 12)
+plt.plot(n, np.uint8(img_negative_t))
+plt.title('Neg Trans')
+
+# Show the Images
+plt.show()
+
 #
 # #########################################
 # ## 2.1.2 Which is also 3.2
@@ -442,7 +443,7 @@ def hist_stretch(img, t_func):
 # plt.imshow(th3, 'gray')
 # plt.title('Adaptive Threshold')
 # plt.show()
-#
+
 # #########################################
 # ## 3.3.1 - Histogram Stretching
 # #########################################
@@ -489,64 +490,61 @@ def hist_stretch(img, t_func):
 # # function
 # after_t = hist_stretch(img, trans_func)
 #
-#
-#
-#
 # # Plotting
-# plt.subplot(4, 2, 1)
+# plt.subplot(3, 2, 1)
 # plt.imshow(img, cmap='gray', vmin=0, vmax=255)
 # plt.title('Original Image')
-# plt.subplot(4, 2, 2)
+# plt.subplot(3, 2, 2)
 # plt.hist(img.ravel(), 256, [0, 256])
 # plt.title('Original Histogram')
-# plt.subplot(4, 2, 3)
+# plt.subplot(3, 2, 3)
 # plt.imshow(after_t, cmap='gray', vmin=0, vmax=255)
 # plt.title('Img After Transform')
-# plt.subplot(4, 2, 4)
+# plt.subplot(3, 2, 4)
 # plt.hist(after_t.ravel(), 256, [0, 256])
 # plt.title('Histogram After Strech')
-# plt.subplot(4, 2, (7, 8))
+# plt.subplot(3, 2, (5, 6))
 # plt.plot(trans_func)
 # plt.show()
 
 # #########################################
 # ## 3.3.2 - Histogram Equalization
 # #########################################
-N = 256
-# Create linspace
-n = np.linspace(0,N,N)
-# Loading the Image
-img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
-# Calculating Histogram
-manual_hist = create_histogram(img) # Calculation time is longer than usual
-# PDF and CDF of Manual Histogram
-manual_pdf = manual_hist / sum(manual_hist)
-manual_cdf = np.cumsum(manual_pdf)
-
-# Equalizing the Histogram
-img_cdf_after_t = hist_stretch(img, manual_cdf)
-hist_eq = histogram_equalization(img_cdf_after_t)
-
-# CDF of new equalized Histogram
-cdf_eq = np.cumsum(hist_eq)
-
-# Plots
-plt.subplot(3, 2, 1)
-plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-plt.title('Original Image')
-plt.subplot(3, 2, 3)
-plt.hist(img.ravel(), 256, [0, 256])
-plt.title('Original Histogram')
-plt.subplot(3, 2, 5)
-plt.plot(manual_cdf)
-plt.title('Original CDF')
-plt.subplot(3, 2, 2)
-plt.imshow((img_cdf_after_t*255), cmap='gray', vmin=0, vmax=255)
-plt.title('Img After Hist Eq')
-plt.subplot(3, 2, 4)
-plt.hist((img_cdf_after_t*255).ravel(), 256, [0, 256])
-plt.title('Hist after Eq')
-plt.subplot(3, 2, 6)
-plt.plot(cdf_eq)
-plt.title('Equalized CDF')
-plt.show()
+# N = 256
+# # Create linspace
+# n = np.linspace(0,N,N)
+# # Loading the Image
+# img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# # Calculating Histogram
+# manual_hist = create_histogram(img) # Calculation time is longer than usual
+# # PDF and CDF of Manual Histogram
+# manual_pdf = manual_hist / sum(manual_hist)
+# manual_cdf = np.cumsum(manual_pdf)
+#
+# # Equalizing the Histogram
+# img_cdf_after_t = hist_stretch(img, manual_cdf)
+# hist_eq = histogram_equalization(img_cdf_after_t)
+#
+# # CDF of new equalized Histogram
+# cdf_eq = np.cumsum(hist_eq)
+#
+# # Plots
+# plt.subplot(3, 2, 1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Original Image')
+# plt.subplot(3, 2, 3)
+# plt.hist(img.ravel(), 256, [0, 256])
+# plt.title('Original Histogram')
+# plt.subplot(3, 2, 5)
+# plt.plot(manual_cdf)
+# plt.title('Original CDF')
+# plt.subplot(3, 2, 2)
+# plt.imshow((img_cdf_after_t*255), cmap='gray', vmin=0, vmax=255)
+# plt.title('Img After Hist Eq')
+# plt.subplot(3, 2, 4)
+# plt.hist((img_cdf_after_t*255).ravel(), 256, [0, 256])
+# plt.title('Hist after Eq')
+# plt.subplot(3, 2, 6)
+# plt.plot(cdf_eq)
+# plt.title('Equalized CDF')
+# plt.show()
