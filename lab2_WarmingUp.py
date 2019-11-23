@@ -92,27 +92,29 @@ import scipy
 #     return img2
 # ##########################################################
 # ##########################################################
-def create_histogram(img):
-    """Create Histogram for Image"""
-    rows, cols = img.shape
-    hist = np.zeros(N)
-    for i in range(0, 255, 1):
-        for col in range(0, cols, 1):
-            for row in range(0, rows, 1):
-                if img[row,col] == i:
-                    hist[i] += 1
-    return hist
-#
-#
-# ############################################################
-# ############################################################
-# def threshold(img, threshold='110'):
-#     """Create a threshold for Image, Default Value is 110 """
+# def create_histogram(img):
+#     """Create Histogram for Image"""
 #     rows, cols = img.shape
-#     for
+#     hist = np.zeros(N)
+#     for i in range(0, 255, 1):
+#         for col in range(0, cols, 1):
+#             for row in range(0, rows, 1):
+#                 if img[row,col] == i:
+#                     hist[i] += 1
+#     return hist
 #
-#     return img
-
+#
+# ############################################################
+# ############################################################
+def hist_stretch(img, t_func):
+    """Stretch Histogram for any Image"""
+    rows, cols = img.shape
+    img_c = np.ones(np.shape(img[:, :]))
+    for col in range(0, cols, 1):
+        for row in range(0, rows, 1):
+            temp = t_func[img[row, col]]
+            img_c[row, col] = temp
+    return img_c
 # ############################################################
 # # ex. 1.1.2 - Adding Brightness Only to Tire.tif:
 # ##########################################################
@@ -437,7 +439,69 @@ def create_histogram(img):
 # #########################################
 # ## 3.3.1 - Histogram Stretching
 # #########################################
-# Loading the Image
-img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# # Constants
+# N = 256
+# num_slopes = 3
+# len_points = 4
+# # Loading the Image
+# img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# # Creating the Transfer function
+# # User input for custom transfer function
+# point1_x = int(input("Enter x1: "))
+# point1_y = int(input("Enter y1: "))
+# point2_x = int(input("Enter x2: "))
+# point2_y = int(input("Enter y2: "))
+# # Function
+# x = np.arange(len_points)
+# y = np.arange(len_points)
+# x[0] = 0
+# x[1] = point1_x
+# x[2] = point2_x
+# x[3] = 255
+# y[0] = 0
+# y[1] = point1_y
+# y[2] = point2_y
+# y[3] = 255
+#
+# # Creating the Slops
+# slope = np.zeros(num_slopes)
+# slope[0] = y[1] / x[1]
+# slope[1] = ((y[2] - y[1])/(x[2] - x[1]))
+# slope[2] = ((y[3] - y[2])/(x[3] - x[2]))
+#
+# # Graph
+# trans_func = np.zeros(N, dtype=float)
+# for indx in range(0, 256,1):
+#     if(indx<=x[1]):
+#         trans_func[indx] = slope[0] * (indx)
+#     elif indx <=x[2]:
+#         trans_func[indx] = (slope[1] * ((indx) - x[1])) + y[1]
+#     else:
+#         trans_func[indx] = (slope[2] * ((indx) - x[2])) + y[2]
+#
+# # function
+# after_t = hist_stretch(img, trans_func)
+#
+#
+#
+# pass
+# # Plotting
+# plt.subplot(4, 2, 1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Original Image')
+# plt.subplot(4, 2, 2)
+# plt.hist(img.ravel(), 256, [0, 256])
+# plt.title('Original Histogram')
+# plt.subplot(4, 2, 3)
+# plt.imshow(after_t, cmap='gray', vmin=0, vmax=255)
+# plt.title('Img After Transform')
+# plt.subplot(4, 2, 4)
+# plt.hist(after_t.ravel(), 256, [0, 256])
+# plt.title('Histogram After Strech')
+# plt.subplot(4, 2, (7, 8))
+# plt.plot(trans_func)
+# plt.show()
 
-
+# #########################################
+# ## 3.3.1 - Histogram Equalization
+# #########################################
