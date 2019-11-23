@@ -9,103 +9,119 @@ from scipy.stats import norm
 
 import scipy
 
-# ##########################################################
-# ##########################################################
-# #function for 1.1.2 - increasing brightness in Python
-# ##########################################################
-# def brightness(img, value):
-#
-#     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-#     h, s, v = cv2.split(hsv)
-#
-#     lim = 255 - value
-#     v[v > lim] = 255
-#     v[v <= lim] += value
-#
-#     final_hsv = cv2.merge((h, s, v))
-#     img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
-#     return img
-#
-#
-#
-# ##########################################################
-# ##########################################################
-#
-#
-# def brightness2(img, value):
-#
-#     img2 = np.ones(np.shape(img[:, :]))
-#     cols = np.size(img2[1, :])
-#     rows = np.size(img2[:, 1])
-#
-#     for i in range(0, cols, 1):
-#         for j in range(0, rows, 1):
-#             if (img[j, i] + value) > 255:
-#                 img2[j, i] = 255
-#             else:
-#                 img2[j, i] = img[j, i] + value
-#     return img2
-# ##########################################################
-# ##########################################################
-#
-#
-# def contrast(img, value):
-#
-#     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-#     h, s, v = cv2.split(hsv)
-#
-#     s = s * value
-#     lim = 255
-#     s[s > lim] = 255
-#
-#     final_hsv = cv2.merge((h, s, v))
-#     img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
-#     return img
-#
-# ##########################################################
-# ##########################################################
-#
-# def contrast2(img, value):
-#
-#     img2 = np.ones(np.shape(img[:, :]))
-#     cols = np.size(img2[1, :])
-#     rows = np.size(img2[:, 1])
-#
-#     for i in range(0, cols, 1):
-#         for j in range(0, rows, 1):
-#             if (img[j, i] * value) > 255:
-#                 img2[j, i] = 255
-#             else:
-#                 img2[j, i] = img[j, i] * value
-#     return img2
-# ##########################################################
-# ##########################################################
-#
-# ##########################################################
-# ##########################################################
-#
-# def negative(img):
-#
-#     img2 = np.zeros(np.shape(img[:, :]))
-#     img2[:, :] = 255 - img[:, :]
-#
-#     return img2
-# ##########################################################
-# ##########################################################
-# def create_histogram(img):
-#     """Create Histogram for Image"""
-#     rows, cols = img.shape
-#     hist = np.zeros(N)
-#     for i in range(0, 255, 1):
-#         for col in range(0, cols, 1):
-#             for row in range(0, rows, 1):
-#                 if img[row,col] == i:
-#                     hist[i] += 1
-#     return hist
-#
-#
-# ############################################################
-# ############################################################
+##########################################################
+##########################################################
+#function for 1.1.2 - increasing brightness in Python
+##########################################################
+def brightness(img, value):
+
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    lim = 255 - value
+    v[v > lim] = 255
+    v[v <= lim] += value
+
+    final_hsv = cv2.merge((h, s, v))
+    img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
+    return img
+
+
+
+##########################################################
+##########################################################
+
+
+def brightness2(img, value):
+
+    img2 = np.ones(np.shape(img[:, :]))
+    cols = np.size(img2[1, :])
+    rows = np.size(img2[:, 1])
+
+    for i in range(0, cols, 1):
+        for j in range(0, rows, 1):
+            if (img[j, i] + value) > 255:
+                img2[j, i] = 255
+            else:
+                img2[j, i] = img[j, i] + value
+    return img2
+##########################################################
+##########################################################
+
+
+def contrast(img, value):
+
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    s = s * value
+    lim = 255
+    s[s > lim] = 255
+
+    final_hsv = cv2.merge((h, s, v))
+    img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
+    return img
+
+##########################################################
+##########################################################
+
+def contrast2(img, value):
+
+    img2 = np.ones(np.shape(img[:, :]))
+    cols = np.size(img2[1, :])
+    rows = np.size(img2[:, 1])
+
+    for i in range(0, cols, 1):
+        for j in range(0, rows, 1):
+            if (img[j, i] * value) > 255:
+                img2[j, i] = 255
+            else:
+                img2[j, i] = img[j, i] * value
+    return img2
+##########################################################
+##########################################################
+
+##########################################################
+##########################################################
+
+def negative(img):
+
+    img2 = np.zeros(np.shape(img[:, :]))
+    img2[:, :] = 255 - img[:, :]
+
+    return img2
+##########################################################
+##########################################################
+def create_histogram(img):
+    """Create Histogram for Image"""
+    rows, cols = img.shape
+    hist = np.zeros(N)
+    for i in range(0, 255, 1):
+        for col in range(0, cols, 1):
+            for row in range(0, rows, 1):
+                if img[row,col] == i:
+                    hist[i] += 1
+    return hist
+
+
+############################################################
+############################################################
+def histogram_equalization(img):
+    """Equalize Histogram for Image"""
+    rows, cols = img.shape
+    hist = np.zeros(N)
+    img2 = np.ceil((img) * 255)
+    for i in range(0, 255, 1):
+        for col in range(0, cols, 1):
+            for row in range(0, rows, 1):
+                if img2[row, col] == i:
+                    hist[i] += 1
+    return hist
+
+
+############################################################
+############################################################
+
 def hist_stretch(img, t_func):
     """Stretch Histogram for any Image"""
     rows, cols = img.shape
@@ -505,3 +521,41 @@ def hist_stretch(img, t_func):
 # #########################################
 # ## 3.3.1 - Histogram Equalization
 # #########################################
+N = 256
+# Create linspace
+n = np.linspace(0,N,N)
+# Loading the Image
+img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# Calculating Histogram
+manual_hist = create_histogram(img) # Calculation time is longer than usual
+# PDF and CDF of Manual Histogram
+manual_pdf = manual_hist / sum(manual_hist)
+manual_cdf = np.cumsum(manual_pdf)
+
+# Equalizing the Histogram
+img_cdf_after_t = hist_stretch(img, manual_cdf)
+hist_eq = histogram_equalization(img_cdf_after_t)
+
+# CDF of new equalized Histogram
+cdf_eq = np.cumsum(hist_eq)
+
+# Plots
+plt.subplot(3, 2, 1)
+plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Image')
+plt.subplot(3, 2, 3)
+plt.hist(img.ravel(), 256, [0, 256])
+plt.title('Original Histogram')
+plt.subplot(3, 2, 5)
+plt.plot(manual_cdf)
+plt.title('Original CDF')
+plt.subplot(3, 2, 2)
+plt.imshow((img_cdf_after_t*255), cmap='gray', vmin=0, vmax=255)
+plt.title('Img After Hist Eq')
+plt.subplot(3, 2, 4)
+plt.hist((img_cdf_after_t*255).ravel(), 256, [0, 256])
+plt.title('Hist after Eq')
+plt.subplot(3, 2, 6)
+plt.plot(cdf_eq)
+plt.title('Equalized CDF')
+plt.show()
