@@ -367,15 +367,6 @@ def hist_stretch(img, t_func):
 # # Show the Images
 # plt.show()
 #
-# ## TODO - Need to see if Eyals Matlab Code also works in python:
-# # % img = double(imread('tire.tif'));
-# # % x = 0:255;
-# # % T = 255:-1:0;
-# # % y = T(x+1);
-# # % img1 = zeros(size(img));
-# # % img1 = T(img+1);
-# ## End Todo
-#
 #
 # #########################################
 # ## 2.1.2 Which is also 3.2
@@ -500,7 +491,7 @@ def hist_stretch(img, t_func):
 #
 #
 #
-# pass
+#
 # # Plotting
 # plt.subplot(4, 2, 1)
 # plt.imshow(img, cmap='gray', vmin=0, vmax=255)
