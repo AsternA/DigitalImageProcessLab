@@ -8,7 +8,7 @@ from scipy.stats import uniform
 from scipy.stats import norm
 
 import scipy
-
+N = 256
 ##########################################################
 ##########################################################
 #function for 1.1.2 - increasing brightness in Python
@@ -128,8 +128,7 @@ def hist_stretch(img, t_func):
     img_c = np.ones(np.shape(img[:, :]))
     for col in range(0, cols, 1):
         for row in range(0, rows, 1):
-            temp = t_func[img[row, col]]
-            img_c[row, col] = temp
+            img_c[row, col] = t_func[img[row, col]]
     return img_c
 # ############################################################
 # # ex. 1.1.2 - Adding Brightness Only to Tire.tif:
@@ -293,82 +292,82 @@ def hist_stretch(img, t_func):
 # #########################################
 # ## 2.1.1 Which is also 3.1
 # #########################################
-
-N = 256
-n = np.linspace(0,N,N)
-
-img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
-#hist_img = plt.hist(img, bins=N)
-
-# Change Brightness
-img_bright = brightness2(img, value=50)
-img_bright = np.uint8(img_bright)
-img_bright_t = np.zeros(np.size(n))
-for i in range(0,N):
-    if n[i] + 50 >= 255:
-        img_bright_t[i] = 255
-    else:
-        img_bright_t[i] = n[i] + 50
-
-# Change Contrast
-img_contrast = contrast2(img, value=0.4)
-img_contrast = np.uint8(img_contrast)
-img_contrast_t = n * 0.4
-
-# Negative
-img_negative = negative(img)
-img_negative = np.uint8(img_negative)
-img_negative_t = 256 - n
-
-# Original Image
-plt.subplot(3, 4, 1)
-plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-plt.title('Original Img')
-plt.subplot(3, 4, 5)
-plt.hist(img.ravel(), 256, [0, 256])
-plt.title('Original Hist')
-plt.subplot(3, 4, 9)
-plt.plot(n,n)
-plt.title('Original Trans')
-
-# Image with Different Brightness
-plt.subplot(3, 4, 2)
-plt.imshow(img_bright, cmap='gray', vmin=0, vmax=255)
-plt.title('Bright Img')
-plt.subplot(3, 4, 6)
-plt.hist(img_bright.ravel(), 256, [0, 256])
-plt.title('Bright Hist')
-plt.subplot(3, 4 ,10)
-plt.plot(n, np.uint8(img_bright_t))
-plt.title('Bright Trans')
-
-
-# Image Multiplied by Value
-plt.subplot(3, 4, 3)
-plt.imshow(img_contrast, cmap='gray', vmin=0, vmax=255)
-plt.title('Contrast Img')
-plt.subplot(3, 4, 7)
-plt.hist(img_contrast.ravel(), 256, [0, 256])
-plt.title('Contrast Hist')
-plt.subplot(3, 4, 11)
-plt.plot(n, np.uint8(img_contrast_t))
-plt.title('Contrast Trans')
-
-# Negative Image
-plt.subplot(3, 4, 4)
-plt.imshow(img_negative, cmap='gray', vmin=0, vmax=255)
-plt.title('Neg Image')
-plt.subplot(3, 4, 8)
-plt.hist(img_negative.ravel(), 256, [0, 256])
-plt.title('Neg Hist')
-plt.subplot(3, 4, 12)
-plt.plot(n, np.uint8(img_negative_t))
-plt.title('Neg Trans')
-
-# Show the Images
-plt.show()
-
 #
+# N = 256
+# n = np.linspace(0,N,N)
+#
+# img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# #hist_img = plt.hist(img, bins=N)
+#
+# # Change Brightness
+# img_bright = brightness2(img, value=50)
+# img_bright = np.uint8(img_bright)
+# img_bright_t = np.zeros(np.size(n))
+# for i in range(0,N):
+#     if n[i] + 50 >= 255:
+#         img_bright_t[i] = 255
+#     else:
+#         img_bright_t[i] = n[i] + 50
+#
+# # Change Contrast
+# img_contrast = contrast2(img, value=0.4)
+# img_contrast = np.uint8(img_contrast)
+# img_contrast_t = n * 0.4
+#
+# # Negative
+# img_negative = negative(img)
+# img_negative = np.uint8(img_negative)
+# img_negative_t = 256 - n
+#
+# # Original Image
+# plt.subplot(3, 4, 1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Original Img')
+# plt.subplot(3, 4, 5)
+# plt.hist(img.ravel(), 256, [0, 256])
+# plt.title('Original Hist')
+# plt.subplot(3, 4, 9)
+# plt.plot(n,n)
+# plt.title('Original Trans')
+#
+# # Image with Different Brightness
+# plt.subplot(3, 4, 2)
+# plt.imshow(img_bright, cmap='gray', vmin=0, vmax=255)
+# plt.title('Bright Img')
+# plt.subplot(3, 4, 6)
+# plt.hist(img_bright.ravel(), 256, [0, 256])
+# plt.title('Bright Hist')
+# plt.subplot(3, 4 ,10)
+# plt.plot(n, np.uint8(img_bright_t))
+# plt.title('Bright Trans')
+#
+#
+# # Image Multiplied by Value
+# plt.subplot(3, 4, 3)
+# plt.imshow(img_contrast, cmap='gray', vmin=0, vmax=255)
+# plt.title('Contrast Img')
+# plt.subplot(3, 4, 7)
+# plt.hist(img_contrast.ravel(), 256, [0, 256])
+# plt.title('Contrast Hist')
+# plt.subplot(3, 4, 11)
+# plt.plot(n, np.uint8(img_contrast_t))
+# plt.title('Contrast Trans')
+#
+# # Negative Image
+# plt.subplot(3, 4, 4)
+# plt.imshow(img_negative, cmap='gray', vmin=0, vmax=255)
+# plt.title('Neg Image')
+# plt.subplot(3, 4, 8)
+# plt.hist(img_negative.ravel(), 256, [0, 256])
+# plt.title('Neg Hist')
+# plt.subplot(3, 4, 12)
+# plt.plot(n, np.uint8(img_negative_t))
+# plt.title('Neg Trans')
+#
+# # Show the Images
+# plt.show()
+#
+# #
 # #########################################
 # ## 2.1.2 Which is also 3.2
 # #########################################
@@ -548,3 +547,60 @@ plt.show()
 # plt.plot(cdf_eq)
 # plt.title('Equalized CDF')
 # plt.show()
+# #########################################
+# ## 3.3.2 - Histogram based on CDF of pictures
+# #########################################
+# Load the Image
+img_1 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/tire.tif')
+img_2 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/cameraman.tif')
+# Calculate the CDF of the Pictures
+hist_img_1 = create_histogram(img_1)
+pdf_img_1 = hist_img_1 / sum(hist_img_1)
+cdf_img_1 = np.cumsum(pdf_img_1)
+
+hist_img_2 = create_histogram(img_2)
+pdf_img_2 = hist_img_2 / sum(hist_img_2)
+cdf_img_2 = np.cumsum(pdf_img_2)
+
+#
+img_1_t = hist_stretch(img_1, cdf_img_2)    # New Image
+img_1_t = np.uint8(img_1_t * 255)
+# Create new CDF
+hist_img_1_t = create_histogram(img_1_t)
+pdf_img1_t = hist_img_1_t / sum(hist_img_1_t)
+cdf_img1_t = np.cumsum(pdf_img1_t)
+
+img_2_t = hist_stretch(img_2, cdf_img_1)    # New Image
+img_2_t = np.uint8(img_2_t * 255)
+# Create new CDF
+hist_img_2_t = create_histogram(img_2_t)
+pdf_img2_t = hist_img_2_t / sum(hist_img_2_t)
+cdf_img2_t = np.cumsum(pdf_img2_t)
+
+
+plt.subplot(2, 4, 1)
+plt.imshow(img_1, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Image')
+plt.subplot(2, 4, 2)
+plt.plot(cdf_img_1)
+plt.title('CDF Img 1')
+plt.subplot(2, 4, 3)
+plt.imshow((img_1_t*255), cmap='gray', vmin=0, vmax=255)
+plt.title('New Image')
+plt.subplot(2, 4, 4)
+plt.plot(cdf_img1_t)
+plt.title('New CDF')
+plt.subplot(2, 4, 5)
+plt.imshow(img_2, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Image')
+plt.subplot(2, 4, 6)
+plt.plot(cdf_img_2)
+plt.title('CDF Img 2')
+plt.subplot(2, 4, 7)
+plt.imshow((img_2_t*255), cmap='gray', vmin=0, vmax=255)
+plt.title('New Image')
+plt.subplot(2, 4, 8)
+plt.plot(cdf_img2_t)
+plt.title('New CDF')
+plt.show()
+

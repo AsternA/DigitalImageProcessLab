@@ -269,56 +269,56 @@ import skimage
 ############################################################################################################
 # # ex 2.1.2 - Mach Bands
 ############################################################################################################
-
-N = 255
-ramp = np.linspace(start=0, stop=N, num=N)
-ramp_arr = np.array(ramp, dtype='uint8')
-
-ramp_img = np.matlib.repmat(ramp_arr,N,1)
-
-div_into_8 = (ramp/32)
-floor_div = np.floor(div_into_8)
-mult = floor_div*32
-mult = np.uint8(mult)
-step = np.matlib.repmat(mult,N,1)
-
-plt.figure(1)
-plt.imshow(step, cmap='gray', vmin=0, vmax=255)
-plt.title('8 Bands Image')
-plt.figure(2)
-gauss = random_noise(step, mode='localvar')*255.0
-sp = random_noise(step, mode='s&p')*255.0
-plt.subplot(1, 2, 1)
-plt.imshow(gauss, cmap='gray', vmin=0, vmax=255)
-plt.title('Gauss')
-plt.subplot(1, 2, 2)
-plt.imshow(sp, cmap='gray', vmin=0, vmax=255)
-plt.title('S & P')
-plt.show()
-
-
-
-plt.figure(3)
-plt.subplot(2, 3, 3)
-plt.plot(ramp_arr)
-plt.title("The First Line")
-plt.subplot(2, 3, 1)
-plt.imshow(ramp_img, cmap='gray', vmin=0, vmax=255)
-plt.title("Ramp Image")
-plt.subplot(2, 3, 2)
-plt.hist(ramp_img.ravel(), 256, [0, 256])
-plt.title("Ramp Historgram")
-plt.subplot(2, 3, 4)
-plt.imshow(step, cmap='gray', vmin=0, vmax=255)
-plt.title("8 Bands Image")
-plt.subplot(2, 3, 5)
-plt.hist(step, 8, [0, 256])
-plt.title("8 Bands Histogram")
-plt.subplot(2, 3, 6)
-plt.plot(ramp,step[1,:])
-plt.title("First Line")
-plt.show()
-###
+#
+# N = 255
+# ramp = np.linspace(start=0, stop=N, num=N)
+# ramp_arr = np.array(ramp, dtype='uint8')
+#
+# ramp_img = np.matlib.repmat(ramp_arr,N,1)
+#
+# div_into_8 = (ramp/32)
+# floor_div = np.floor(div_into_8)
+# mult = floor_div*32
+# mult = np.uint8(mult)
+# step = np.matlib.repmat(mult,N,1)
+#
+# plt.figure(1)
+# plt.imshow(step, cmap='gray', vmin=0, vmax=255)
+# plt.title('8 Bands Image')
+# plt.figure(2)
+# gauss = random_noise(step, mode='localvar')*255.0
+# sp = random_noise(step, mode='s&p')*255.0
+# plt.subplot(1, 2, 1)
+# plt.imshow(gauss, cmap='gray', vmin=0, vmax=255)
+# plt.title('Gauss')
+# plt.subplot(1, 2, 2)
+# plt.imshow(sp, cmap='gray', vmin=0, vmax=255)
+# plt.title('S & P')
+# plt.show()
+#
+#
+#
+# plt.figure(3)
+# plt.subplot(2, 3, 3)
+# plt.plot(ramp_arr)
+# plt.title("The First Line")
+# plt.subplot(2, 3, 1)
+# plt.imshow(ramp_img, cmap='gray', vmin=0, vmax=255)
+# plt.title("Ramp Image")
+# plt.subplot(2, 3, 2)
+# plt.hist(ramp_img.ravel(), 256, [0, 256])
+# plt.title("Ramp Historgram")
+# plt.subplot(2, 3, 4)
+# plt.imshow(step, cmap='gray', vmin=0, vmax=255)
+# plt.title("8 Bands Image")
+# plt.subplot(2, 3, 5)
+# plt.hist(step, 8, [0, 256])
+# plt.title("8 Bands Histogram")
+# plt.subplot(2, 3, 6)
+# plt.plot(ramp,step[1,:])
+# plt.title("First Line")
+# plt.show()
+# ###
 ############################################################################################################
 # # ex 2.2.1 - 2D Signals
 ############################################################################################################
