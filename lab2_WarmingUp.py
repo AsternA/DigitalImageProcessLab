@@ -510,7 +510,7 @@ def hist_stretch(img, t_func):
 # plt.show()
 
 # #########################################
-# ## 3.3.1 - Histogram Equalization
+# ## 3.3.2 - Histogram Equalization
 # #########################################
 N = 256
 # Create linspace
