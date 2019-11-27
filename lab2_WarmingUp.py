@@ -467,8 +467,8 @@ N = 256
 num_slopes = 3
 len_points = 4
 # Loading the Image
-img = plt.imread('C:/Users/200468015/Downloads/pout.tif')
-img_cv = cv2.imread('C:/Users/200468015/Downloads/pout.tif')
+img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+img_cv = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
 # Creating the Transfer function
 # User input for custom transfer function
 point1_x = int(input("Enter x1: "))
@@ -504,7 +504,7 @@ for indx in range(0, 256, 1):
         trans_func[indx] = (slope[2] * (indx - x[2])) + y[2]
 
 # function
-after_t = hist_stretch(img_cv, trans_func)
+after_t = hist_stretch(img, trans_func)
 
 # Plotting
 plt.subplot(3, 2, 1)
