@@ -99,18 +99,10 @@ def create_histogram(img):
     """Create Histogram for Image"""
     rows, cols = img.shape
     hist = np.zeros(N)
-    buff = np.zeros(N)
-    # for i in range(106, 255, 1):
-    #     buff = np.vectorize(img == i, otypes=[np.float])
-    #     hist[i] = sum(buff[i, :])
-    # return hist
     for i in range(0, 255, 1):
         p = 1 * (img == i)
-        # temp = sum(p)
         hist[i] = sum(sum(p))
     return hist
-
-
 ############################################################
 ############################################################
 def histogram_equalization(img):
