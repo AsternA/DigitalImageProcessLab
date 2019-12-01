@@ -10,7 +10,7 @@ from PIL import Image as PilImg
 
 import scipy
 
-
+N = 256
 ##########################################################
 ##########################################################
 # function for 1.1.2 - increasing brightness in Python
@@ -97,7 +97,6 @@ def negative(img):
 ##########################################################
 def create_histogram(img):
     """Create Histogram for Image"""
-    rows, cols = img.shape
     hist = np.zeros(N)
     for i in range(0, 255, 1):
         p = 1 * (img == i)
@@ -107,14 +106,9 @@ def create_histogram(img):
 ############################################################
 def histogram_equalization(img):
     """Equalize Histogram for Image"""
-    rows, cols = img.shape
     hist = np.zeros(N)
     img2 = np.ceil((img) * 255)
     for i in range(0, 255, 1):
-        # for col in range(0, cols, 1):
-        #     for row in range(0, rows, 1):
-        #         if img2[row, col] == i:
-        #             hist[i] += 1
         p = 1 * (img2 == i)
         hist[i] = sum(sum(p))
     return hist
@@ -122,18 +116,6 @@ def histogram_equalization(img):
 
 ############################################################
 ############################################################
-
-def hist_stretch(img, t_func):
-    """Stretch Histogram for any Image"""
-    rows, cols = img.shape
-    img_c = np.ones(np.shape(img[:, :]))
-    hist_func = cv2.calcHist([img_cv], [0], None, [256], [0, 256])
-
-    # for col in range(0, cols, 1):
-    #     for row in range(0, rows, 1):
-    #         temp = t_func[img[row, col]]
-    #         img_c[row, col] = temp
-    return img_c
 
 
 # ############################################################
@@ -462,66 +444,79 @@ def hist_stretch(img, t_func):
 # #########################################
 # ## 3.3.1 - Histogram Stretching
 # #########################################
-# Constants
-N = 256
-num_slopes = 3
-len_points = 4
-# Loading the Image
-img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
-img_cv = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
-# Creating the Transfer function
-# User input for custom transfer function
-point1_x = int(input("Enter x1: "))
-point1_y = int(input("Enter y1: "))
-point2_x = int(input("Enter x2: "))
-point2_y = int(input("Enter y2: "))
-# Function
-x = np.arange(len_points)
-y = np.arange(len_points)
-x[0] = 0
-x[1] = point1_x
-x[2] = point2_x
-x[3] = 255
-y[0] = 0
-y[1] = point1_y
-y[2] = point2_y
-y[3] = 255
-
-# Creating the Slops
-slope = np.zeros(num_slopes)
-slope[0] = y[1] / x[1]
-slope[1] = ((y[2] - y[1]) / (x[2] - x[1]))
-slope[2] = ((y[3] - y[2]) / (x[3] - x[2]))
-
-# Graph
-trans_func = np.zeros(N, dtype=float)
-for indx in range(0, 256, 1):
-    if indx <= x[1]:
-        trans_func[indx] = slope[0] * indx
-    elif indx <= x[2]:
-        trans_func[indx] = (slope[1] * (indx - x[1])) + y[1]
-    else:
-        trans_func[indx] = (slope[2] * (indx - x[2])) + y[2]
-
-# function
-after_t = hist_stretch(img, trans_func)
-
-# Plotting
-plt.subplot(3, 2, 1)
-plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-plt.title('Original Image')
-plt.subplot(3, 2, 2)
-plt.hist(img.ravel(), 256, [0, 256])
-plt.title('Original Histogram')
-plt.subplot(3, 2, 3)
-plt.imshow(after_t, cmap='gray', vmin=0, vmax=255)
-plt.title('Img After Transform')
-plt.subplot(3, 2, 4)
-plt.hist(after_t.ravel(), 256, [0, 256])
-plt.title('Histogram After Strech')
-plt.subplot(3, 2, (5, 6))
-plt.plot(trans_func)
-plt.show()
+# # Constants
+# N = 256
+# num_slopes = 3
+# len_points = 4
+# # Loading the Image
+# #img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# #img_cv = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+# # Creating the Transfer function
+# # User input for custom transfer function
+# point1_x = int(input("Enter x1: "))
+# point1_y = int(input("Enter y1: "))
+# point2_x = int(input("Enter x2: "))
+# point2_y = int(input("Enter y2: "))
+# # Function
+# x = np.arange(len_points)
+# y = np.arange(len_points)
+# x[0] = 0
+# x[1] = point1_x
+# x[2] = point2_x
+# x[3] = 255
+# y[0] = 0
+# y[1] = point1_y
+# y[2] = point2_y
+# y[3] = 255
+#
+# # Creating the Slops
+# slope = np.zeros(num_slopes)
+# slope[0] = y[1] / x[1]
+# slope[1] = ((y[2] - y[1]) / (x[2] - x[1]))
+# slope[2] = ((y[3] - y[2]) / (x[3] - x[2]))
+#
+# # Graph
+# trans_func = np.zeros(N, dtype=float)
+# for indx in range(0, 256, 1):
+#     if indx <= x[1]:
+#         trans_func[indx] = slope[0] * indx
+#     elif indx <= x[2]:
+#         trans_func[indx] = (slope[1] * (indx - x[1])) + y[1]
+#     else:
+#         trans_func[indx] = (slope[2] * (indx - x[2])) + y[2]
+#
+# # function
+# # after_t = hist_stretch(img, trans_func)
+#
+# img = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif', 0)
+#
+# # hist, bins = np.histogram(img.flatten(), 256, [0, 256])
+#
+# # cdf = hist.cumsum()
+# # cdf_normalized = cdf * hist.max()/ cdf.max()
+# #
+# # cdf_m = np.ma.masked_equal(cdf, 0)
+# # cdf_m = (cdf_m - cdf_m.min())*255/(cdf_m.max()-cdf_m.min())
+# cdf = np.ma.filled(trans_func, 0).astype('uint8')
+#
+# img2 = cdf[img]
+#
+# # Plotting
+# plt.subplot(3, 2, 1)
+# plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+# plt.title('Original Image')
+# plt.subplot(3, 2, 2)
+# plt.hist(img.ravel(), 256, [0, 256])
+# plt.title('Original Histogram')
+# plt.subplot(3, 2, 3)
+# plt.imshow(img2, cmap='gray', vmin=0, vmax=255)
+# plt.title('Img After Transform')
+# plt.subplot(3, 2, 4)
+# plt.hist(img2.ravel(), 256, [0, 256])
+# plt.title('Histogram After Strech')
+# plt.subplot(3, 2, (5, 6))
+# plt.plot(trans_func)
+# plt.show()
 
 # #########################################
 # ## 3.3.2 - Histogram Equalization
@@ -532,17 +527,17 @@ plt.show()
 # # Loading the Image
 # img = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
 # # Calculating Histogram
-# manual_hist = create_histogram(img) # Calculation time is longer than usual
+# manual_hist = create_histogram(img)
 # # PDF and CDF of Manual Histogram
 # manual_pdf = manual_hist / sum(manual_hist)
 # manual_cdf = np.cumsum(manual_pdf)
 #
 # # Equalizing the Histogram
-# img_cdf_after_t = hist_stretch(img, manual_cdf)
+# img_cdf_after_t = manual_cdf[img]
 # hist_eq = histogram_equalization(img_cdf_after_t)
 #
 # # CDF of new equalized Histogram
-# cdf_eq = np.cumsum(hist_eq)
+# cdf_eq = np.cumsum(hist_eq/(255*255))
 #
 # # Plots
 # plt.subplot(3, 2, 1)
@@ -568,59 +563,95 @@ plt.show()
 # #########################################
 # ## 3.3.2 - Histogram based on CDF of pictures
 # #########################################
-# # Load the Image
-# img_1 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/tire.tif')
-# img_2 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/cameraman.tif')
-# # Calculate the CDF of the Pictures
-# hist_img_1 = create_histogram(img_1)
-# pdf_img_1 = hist_img_1 / sum(hist_img_1)
-# cdf_img_1 = np.cumsum(pdf_img_1)
+# Load the Image
+# img_1 = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/tire.tif', 0)
+# img_2 = cv2.imread('/Users/almogstern/Desktop/Matlab Pictures/cameraman.tif', 0)
+img_1 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/pout.tif')
+img_2 = plt.imread('/Users/almogstern/Desktop/Matlab Pictures/cameraman.tif')
+# Calculate the CDF of the Pictures
+hist_img_1 = create_histogram(img_1)
+pdf_img_1 = hist_img_1 / sum(hist_img_1)
+cdf_img_1 = np.cumsum(pdf_img_1)
+
+hist_img_2 = create_histogram(img_2)
+pdf_img_2 = hist_img_2 / sum(hist_img_2)
+cdf_img_2 = np.cumsum(pdf_img_2)
+
+# Hist and CDF of Image 1 to Image 2
+# cdf_img_1_uint8 = np.uint8(cdf_img_1 * 255)
+# #cdf_1 = np.ma.filled(cdf_img_1, 0).astype('uint8')
 #
-# hist_img_2 = create_histogram(img_2)
-# pdf_img_2 = hist_img_2 / sum(hist_img_2)
-# cdf_img_2 = np.cumsum(pdf_img_2)
+# cdf_img_2_uint8 = np.uint8(cdf_img_2 * 255)
+# #cdf_2 = np.ma.filled(cdf_img_2, 0).astype('uint8')
+
+# cdf_img_1_uint8 = cdf_img_1 * 255
+
+img_1_t = cdf_img_1[img_2]
+
+#img_1_t = np.uint8(img_1_t)
+
+#cdf_img_2_uint8 = cdf_img_2 * 255
+
+img_2_t = cdf_img_2[img_1]
+
+#img_2_t = np.uint8(img_2_t)
+
+# hist_1 = cv2.calcHist([img_1], [0], None, [256], [0, 256])
 #
-# cdf_img_2 = cdf_img_2
+# hist_2 = cv2.calcHist([img_2], [0], None, [256], [0, 256])
 #
-# #
-# img_1_t = hist_stretch(img_1, cdf_img_2)    # New Image
-# #img_1_t = np.uint8(img_1_t * 255)
-# # Create new CDF
-# hist_img_1_t = create_histogram(img_1_t)
-# pdf_img1_t = hist_img_1_t / sum(hist_img_1_t)
-# cdf_img1_t = np.cumsum(pdf_img1_t)
-# #
-# # img_2_t = hist_stretch(img_2, cdf_img_1)    # New Image
-# # img_2_t = np.uint8(img_2_t * 255)
-# # # Create new CDF
-# # hist_img_2_t = create_histogram(img_2_t)
-# # pdf_img2_t = hist_img_2_t / sum(hist_img_2_t)
-# # cdf_img2_t = np.cumsum(pdf_img2_t)
+# hist_img_1_t = cv2.calcHist([img_2_t], [0], None, [256], [0, 256])
+#
+# hist_img_2_t = cv2.calcHist([img_1_t], [0], None, [256], [0, 256])
 
 
-# plt.subplot(2, 4, 1)
-# plt.imshow(img_1, cmap='gray', vmin=0, vmax=255)
-# plt.title('Original Image')
-# plt.subplot(2, 4, 2)
-# plt.plot(cdf_img_1)
-# plt.title('CDF Img 1')
-# plt.subplot(2, 4, 3)
-# plt.imshow((img_1_t*255), cmap='gray', vmin=0, vmax=255)
-# plt.title('New Image')
-# plt.subplot(2, 4, 4)
-# plt.plot(cdf_img1_t)
-# plt.title('New CDF')
-# plt.subplot(2, 4, 5)
-# plt.imshow(img_2, cmap='gray', vmin=0, vmax=255)
-# plt.title('Original Image')
-# plt.subplot(2, 4, 6)
-# plt.plot(cdf_img_2)
-# plt.title('CDF Img 2')
-# # plt.subplot(2, 4, 7)
-# # plt.imshow((img_2_t*255), cmap='gray', vmin=0, vmax=255)
-# # plt.title('New Image')
-# # plt.subplot(2, 4, 8)
-# # plt.plot(cdf_img2_t)
-# # plt.title('New CDF')
-# plt.show()
+hist_img_1_t = create_histogram(img_1_t)
+pdf_img_1_t = hist_img_1_t / sum(hist_img_1_t)
+cdf_img_1_t = np.cumsum(pdf_img_1_t)
+
+
+hist_img_2_t = create_histogram(img_2_t)
+pdf_img_2_t = hist_img_2_t / sum(hist_img_2_t)
+cdf_img_2_t = np.cumsum(pdf_img_2_t)
 #
+
+plt.figure(1)
+plt.subplot(2, 2, 1)
+plt.hist(img_1.ravel(), 256, [0, 256])
+plt.subplot(2, 2, 2)
+plt.hist(img_2_t.ravel(), 256, [0, 256])
+plt.subplot(2, 2, 3)
+plt.hist(img_2.ravel(), 256, [0, 256])
+plt.subplot(2, 2, 4)
+plt.hist((img_1_t.ravel()), 256, [0, 256])
+
+
+
+
+plt.figure(2)
+plt.subplot(2, 4, 1)
+plt.imshow(img_1, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Image')
+plt.subplot(2, 4, 2)
+plt.plot(cdf_img_1)
+plt.title('CDF Img 1')
+plt.subplot(2, 4, 3)
+plt.imshow((img_2_t*255), cmap='gray', vmin=0, vmax=255)
+plt.title('New Image')
+plt.subplot(2, 4, 4)
+plt.plot(cdf_img_1_t)
+plt.title('New CDF')
+plt.subplot(2, 4, 5)
+plt.imshow(img_2, cmap='gray', vmin=0, vmax=255)
+plt.title('Original Image')
+plt.subplot(2, 4, 6)
+plt.plot(cdf_img_2)
+plt.title('CDF Img 2')
+plt.subplot(2, 4, 7)
+plt.imshow((img_1_t*255), cmap='gray', vmin=0, vmax=255)
+plt.title('New Image')
+plt.subplot(2, 4, 8)
+plt.plot(cdf_img_2_t)
+plt.title('New CDF')
+plt.show()
+
